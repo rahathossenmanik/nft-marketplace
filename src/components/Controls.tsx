@@ -27,6 +27,7 @@ const Controls: React.FC<Props> = ({ filter, setFilter, topN, setTopN }) => {
       {btn('growth', 'Growth')}
       {btn('strong', 'Strong')}
       {btn('declining', 'Declining')}
+      {btn('junk', 'Junk')}
 
       <div className='ml-auto'>
         <select
