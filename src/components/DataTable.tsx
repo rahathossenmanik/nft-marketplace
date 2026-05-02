@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
 import { Stock } from '../models/Stock';
-import { getStatus } from '../utils/helpers';
+import { getStatus, statusBadgeClass } from '../utils/helpers';
 import { statusMap } from '../constants/common';
 
 interface Props {
@@ -23,21 +23,6 @@ const DataTable: React.FC<Props> = ({
     ) : (
       <Icon icon='fa:sort-desc' />
     );
-  };
-
-  const statusBadgeClass = (status: string) => {
-    switch (status) {
-      case 'strong':
-        return 'bg-green-500 text-white';
-      case 'growth':
-        return 'bg-blue-500 text-white';
-      case 'turnaround':
-        return 'bg-yellow-500 text-gray-800';
-      case 'declining':
-        return 'bg-red-500 text-white';
-      default:
-        return 'bg-gray-500 text-white';
-    }
   };
 
   return (
@@ -87,6 +72,24 @@ const DataTable: React.FC<Props> = ({
               </span>
             </th>
 
+            {/* Quarter Growth */}
+            <th
+              className='cursor-pointer py-2 px-3'
+              onClick={() => handleSort('q3_growth')}>
+              <span className='flex items-center justify-between gap-1'>
+                Q3 Growth % {arrow('q3_growth')}
+              </span>
+            </th>
+
+            {/* 9M Growth */}
+            <th
+              className='cursor-pointer py-2 px-3'
+              onClick={() => handleSort('nm_growth')}>
+              <span className='flex items-center justify-between gap-1'>
+                9M Growth % {arrow('nm_growth')}
+              </span>
+            </th>
+
             <th
               className='cursor-pointer py-2 px-3'
               onClick={() => handleSort('score')}>
@@ -95,7 +98,9 @@ const DataTable: React.FC<Props> = ({
               </span>
             </th>
 
-            <th className='py-2 px-3' onClick={() => handleSort('score')}>
+            <th
+              className='cursor-pointer py-2 px-3'
+              onClick={() => handleSort('score')}>
               <span className='flex items-center justify-between gap-1'>
                 Status {arrow('score')}
               </span>
@@ -133,6 +138,16 @@ const DataTable: React.FC<Props> = ({
               </td>
 
               <td
+                className={`py-2 px-3 ${d.q3_growth !== null && d.q3_growth > 0 ? 'text-green-400' : 'text-red-400'}`}>
+                {d.q3_growth ? `${(d.q3_growth * 100).toFixed(2)}%` : 'N/A'}
+              </td>
+
+              <td
+                className={`py-2 px-3 ${d.nm_growth !== null && d.nm_growth > 0 ? 'text-green-400' : 'text-red-400'}`}>
+                {d.nm_growth ? `${(d.nm_growth * 100).toFixed(2)}%` : 'N/A'}
+              </td>
+
+              <td
                 className={`py-2 px-3 ${d.score >= 0 ? 'text-green-400' : 'text-red-400'}`}>
                 {d.score.toFixed(2)}
               </td>
@@ -143,7 +158,7 @@ const DataTable: React.FC<Props> = ({
                   className={`px-2 py-1 rounded-full text-xs font-semibold ${statusBadgeClass(
                     getStatus(d),
                   )}`}>
-                  {statusMap[getStatus(d)] || getStatus(d)}
+                  {statusMap[getStatus(d)]}
                 </span>
               </td>
             </tr>

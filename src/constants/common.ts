@@ -1,8 +1,9 @@
 
 export const statusMap: Record<string, string> = {
-  strong: 'Strong',
   turnaround: 'Turnaround',
+  strong: 'Strong',
   growth: 'Growth',
   declining: 'Declining',
-  stable: 'Stable',
+  junk: 'Junk',
+  unknown: 'Unknown',
 };

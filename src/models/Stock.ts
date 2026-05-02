@@ -12,9 +12,21 @@ export interface Stock {
   comment?: string;
 }
 
+export interface ExpandedStock extends Stock {
+  q3_growth: number | null;
+  nm_growth: number | null;
+  score: number;
+  pe: number | null;
+  peg: number | null;
+  eps_category: 'turnaround' | 'strong' | 'growth' | 'declining' | 'junk';
+  comment?: string;
+}
+
 export type FilterType =
   | 'all'
   | 'turnaround'
+  | 'strong'
   | 'growth'
-  | 'profitable'
-  | 'declining';
+  | 'declining'
+  | 'junk'
+  ;
