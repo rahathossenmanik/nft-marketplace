@@ -2,14 +2,17 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <nav className='bg-white border-t'>
-      <div className='flex items-center justify-between space-x-8 py-3 px-4 max-w-screen-xl mx-auto md:px-8'>
-        <div className='flex-none lg:flex-initial'>
-          <span className='px-4 py-2 text-indigo-600 text-2xl font-extrabold duration-150 hover:text-indigo-500 active:text-indigo-700'>
-            NFTERS
-          </span>
-        </div>
-        <div>NFTERS &copy; {new Date().getFullYear()} | MANIK HOSEN</div>
+    <nav className='bg-gradient-to-br from-slate-700 to-slate-900 p-6 border-b border-blue-800 flex align-middle justify-between'>
+      <div>
+        <h1 className='text-xl font-bold text-blue-400'>
+          📊 DSE Q3 2026 — EPS Growth Analysis
+        </h1>
+        <p className='text-sm text-slate-400 mt-1'>
+          Dhaka Stock Exchange · YoY & 9M Analysis
+        </p>
+      </div>
+      <div className='text-sm text-slate-400 mt-1 me-3 flex align-middle'>
+        &copy; {new Date().getFullYear()} | MANIK HOSEN
       </div>
     </nav>
   );

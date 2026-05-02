@@ -1,12 +1,19 @@
-import React from 'react';
-import Main from './pages/Main';
+import { useState } from 'react';
+import Dashboard from './pages/Dashboard';
+import Screener from './pages/Screener';
+import Header from './components/Header';
+import Footer from './components/Footer';
 
-function App() {
+const App = () => {
+  const [showScreener, setShowScreener] = useState(false);
+
   return (
     <>
-      <Main />
+      <Header showScreener={showScreener} setShowScreener={setShowScreener} />
+      {showScreener ? <Screener /> : <Dashboard />}
+      <Footer />
     </>
   );
-}
+};
 
 export default App;

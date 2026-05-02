@@ -21,7 +21,7 @@ A high-performance, responsive **NFT Marketplace Web UI** built with **React**, 
 Check out the live site here:
 
 ```bash
-https://rahathossenmanik.github.io/nft-marketplace/
+https://rahathossenmanik.github.io/dse-stock-analysis/
 ```
 
 ---
@@ -48,9 +48,9 @@ Make sure you have [Node.js](https://nodejs.org/) and [Yarn](https://yarnpkg.com
 **Clone the repository:**
 
 ```bash
-git clone https://github.com/rahathossenmanik/nft-marketplace.git
-cd nft-marketplace
-````
+git clone https://github.com/rahathossenmanik/dse-stock-analysis.git
+cd dse-stock-analysis
+```
 
 **Install dependencies:**
 
@@ -95,7 +95,6 @@ yarn deploy
 ✔ Auction countdown visuals
 
 ✔ NFT cards & listing pages
-
 
 ❌ No smart contracts
 
