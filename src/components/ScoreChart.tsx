@@ -24,12 +24,27 @@ const ScoreChart: React.FC<Props> = ({ data }) => {
           datasets: [
             {
               data: top.map((d) => d.score),
+              backgroundColor: top.map((d) =>
+                d.score > 2 ? '#22c55e' : d.score > 0.5 ? '#3b82f6' : '#f59e0b',
+              ),
+              borderRadius: 4,
             },
           ],
         }}
         options={{
           responsive: true,
           indexAxis: 'y',
+          plugins: { legend: { display: false } },
+          scales: {
+            x: {
+              ticks: { color: '#94a3b8', font: { size: 10 } },
+              grid: { color: '#1e293b' },
+            },
+            y: {
+              ticks: { color: '#94a3b8', font: { size: 10 } },
+              grid: { color: '#1e293b' },
+            },
+          },
         }}
       />
     </div>
