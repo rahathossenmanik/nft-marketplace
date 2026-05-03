@@ -33,7 +33,7 @@ const SingleGrowthChart: React.FC<Props> = ({
           {
             label: 'Current Year',
             data: top.map((d) => d[dataset1Key]),
-            backgroundColor: '#22c55e',
+            backgroundColor: '#1b8364',
             borderRadius: 4,
           },
           {

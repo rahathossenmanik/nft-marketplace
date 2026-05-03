@@ -5,16 +5,18 @@ import {
   LinearScale,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { Stock } from '../models/Stock';
+import { Stock } from '../../models/Stock';
+import { sortBy } from '../../utils/common';
 
 ChartJS.register(BarElement, CategoryScale, LinearScale);
 
 interface Props {
   data: Stock[];
+  datKey: keyof Stock;
 }
 
-const ScoreChart: React.FC<Props> = ({ data }) => {
-  const top = [...data].sort((a, b) => b.score - a.score).slice(0, 10);
+const SingleValueChart: React.FC<Props> = ({ data, datKey }) => {
+  const top = sortBy(data, datKey, 'desc').slice(0, 10);
 
   return (
     <Bar
@@ -22,10 +24,8 @@ const ScoreChart: React.FC<Props> = ({ data }) => {
         labels: top.map((d) => d.company),
         datasets: [
           {
-            data: top.map((d) => d.score),
-            backgroundColor: top.map((d) =>
-              d.score > 2 ? '#1b8364' : '#3b82f6',
-            ),
+            data: top.map((d) => d[datKey]),
+            backgroundColor: '#1b8364',
             borderRadius: 4,
           },
         ],
@@ -49,4 +49,4 @@ const ScoreChart: React.FC<Props> = ({ data }) => {
   );
 };
 
-export default ScoreChart;
+export default SingleValueChart;

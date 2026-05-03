@@ -109,20 +109,51 @@ export const filterData = (
   return data.filter(d => getStatus(d) === filter);
 };
 
+export const hybridEpsGrowth = (
+  current: number | null,
+  previous: number | null
+): number | null => {
+  if (current == null || previous == null) return null;
+
+  // Case 1: both positive → use real growth %
+  if (current > 0 && previous > 0) {
+    return ((current - previous) / previous) * 100;
+  }
+
+  // Case 2: fallback → use shifted growth
+  // Handle both zero case
+  if (current === 0 && previous === 0) return 0;
+
+  const shift = 2 * (Math.abs(current) + Math.abs(previous));
+
+  const shiftedCurrent = current + shift;
+  const shiftedPrevious = previous + shift;
+
+  if (shiftedPrevious === 0) return null;
+
+  return ((shiftedCurrent - shiftedPrevious) / shiftedPrevious);
+};
+
 export const getQuarterGrowth = (d: Stock): number | null => {
-  if (d.q3_26 == null || d.q3_25 == null) return null;
 
-  if (d.q3_25 === 0) return null; // avoid division by zero
+  return hybridEpsGrowth(d.q3_26, d.q3_25);
 
-  return ((d.q3_26 - d.q3_25) / Math.abs(d.q3_25));
+  // if (d.q3_26 == null || d.q3_25 == null) return null;
+
+  // if (d.q3_25 === 0) return null; // avoid division by zero
+
+  // return ((d.q3_26 - d.q3_25) / Math.abs(d.q3_25));
 };
 
 export const getNineMonthGrowth = (d: Stock): number | null => {
-  if (d.nm_26 == null || d.nm_25 == null) return null;
 
-  if (d.nm_25 === 0) return null;
+  return hybridEpsGrowth(d.nm_26, d.nm_25);
 
-  return ((d.nm_26 - d.nm_25) / Math.abs(d.nm_25));
+  // if (d.nm_26 == null || d.nm_25 == null) return null;
+
+  // if (d.nm_25 === 0) return null;
+
+  // return ((d.nm_26 - d.nm_25) / Math.abs(d.nm_25));
 };
 
 export const calculateScore = (d: Stock): number => {
