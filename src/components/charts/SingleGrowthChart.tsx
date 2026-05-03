@@ -5,17 +5,25 @@ import {
   LinearScale,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { Stock } from '../models/Stock';
-import { sortBy } from '../utils/common';
+import { Stock } from '../../models/Stock';
+import { sortBy } from '../../utils/common';
 
 ChartJS.register(BarElement, CategoryScale, LinearScale);
 
 interface Props {
   data: Stock[];
+  sortByKey: 'q3_growth' | 'nm_growth';
+  dataset1Key: 'q3_26' | 'nm_26';
+  dataset2Key: 'q3_25' | 'nm_25';
 }
 
-const NineMChart: React.FC<Props> = ({ data }) => {
-  const top = sortBy(data, 'nm_26', 'desc').slice(0, 10);
+const SingleGrowthChart: React.FC<Props> = ({
+  data,
+  sortByKey,
+  dataset1Key,
+  dataset2Key,
+}) => {
+  const top = sortBy(data, sortByKey, 'desc').slice(0, 10);
 
   return (
     <Bar
@@ -23,12 +31,14 @@ const NineMChart: React.FC<Props> = ({ data }) => {
         labels: top.map((d) => d.company),
         datasets: [
           {
-            data: top.map((d) => d.nm_26),
+            label: 'Current Year',
+            data: top.map((d) => d[dataset1Key]),
             backgroundColor: '#22c55e',
             borderRadius: 4,
           },
           {
-            data: top.map((d) => d.nm_25),
+            label: 'Previous Year',
+            data: top.map((d) => d[dataset2Key]),
             backgroundColor: '#e3e3e3',
             borderRadius: 4,
           },
@@ -53,4 +63,4 @@ const NineMChart: React.FC<Props> = ({ data }) => {
   );
 };
 
-export default NineMChart;
+export default SingleGrowthChart;

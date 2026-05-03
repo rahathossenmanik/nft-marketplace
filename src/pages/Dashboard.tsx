@@ -4,6 +4,7 @@ import Summary from '../components/Summary';
 import ScoreChart from '../components/ScoreChart';
 import QuarterChart from '../components/QuarterChart';
 import NineMChart from '../components/NineMChart';
+import GrowthCharts from '../components/charts/GrowthCharts';
 
 const Dashboard: React.FC = () => {
   return (
@@ -11,19 +12,7 @@ const Dashboard: React.FC = () => {
       <Summary data={data} />
 
       <div className='grid md:grid-cols-2 gap-4 p-5'>
-        <div className='bg-slate-800 p-4 rounded'>
-          <h2 className='text-lg font-semibold mb-3 col-span-full'>
-            Top 10 Stocks by Q3 2026 Growth
-          </h2>
-          <QuarterChart data={data} />
-        </div>
-
-        <div className='bg-slate-800 p-4 rounded'>
-          <h2 className='text-lg font-semibold mb-3 col-span-full'>
-            Top 10 Stocks by 9M 2026 Growth
-          </h2>
-          <NineMChart data={data} />
-        </div>
+        <GrowthCharts />
 
         <div className='bg-slate-800 p-4 rounded'>
           <h2 className='text-lg font-semibold mb-3 col-span-full'>
