@@ -6,6 +6,7 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import { Stock } from '../models/Stock';
+import { sortBy } from '../utils/common';
 
 ChartJS.register(BarElement, CategoryScale, LinearScale);
 
@@ -13,8 +14,8 @@ interface Props {
   data: Stock[];
 }
 
-const ScoreChart: React.FC<Props> = ({ data }) => {
-  const top = [...data].sort((a, b) => b.score - a.score).slice(0, 10);
+const NineMChart: React.FC<Props> = ({ data }) => {
+  const top = sortBy(data, 'nm_26', 'desc').slice(0, 10);
 
   return (
     <Bar
@@ -22,10 +23,13 @@ const ScoreChart: React.FC<Props> = ({ data }) => {
         labels: top.map((d) => d.company),
         datasets: [
           {
-            data: top.map((d) => d.score),
-            backgroundColor: top.map((d) =>
-              d.score > 2 ? '#1b8364' : '#3b82f6',
-            ),
+            data: top.map((d) => d.nm_26),
+            backgroundColor: '#22c55e',
+            borderRadius: 4,
+          },
+          {
+            data: top.map((d) => d.nm_25),
+            backgroundColor: '#e3e3e3',
             borderRadius: 4,
           },
         ],
@@ -49,4 +53,4 @@ const ScoreChart: React.FC<Props> = ({ data }) => {
   );
 };
 
-export default ScoreChart;
+export default NineMChart;
